@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('partials/nav', {links: links}) %>
+
+    <h1 class="title"><%= title %></h1>
+    <span class="div"></span>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <% attr.forEach(a => { %>
+                    <th>
+                        <%= a.label %>
+                    </th>
+                <% }) %>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% items.forEach(item => { %>
+                <tr>
+                    <% attr.forEach(a => { %>
+                        <td>
+                            <%= item[a.key] ?? '-' %>
+                        </td>
+                    <% }) %>
+                    <td>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+
+</body>
+</html>

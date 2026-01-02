@@ -1,10 +1,12 @@
 <nav>
-    <ul>
-        <% for (let i = 0; i < links.length; i++) {%>
-            <p>
-                <a href="<%= links[i].href %>"></a>
-                <span> <%= links[i].text %></span>
-            </p>
-        <% } %>
-    </ul>
+    <h1>Transfer Market</h1>
+    <div class="nav">
+
+            <% for (let i = 0; i < links.length; i++) {%>
+                <p>
+                    <a href="<%= links[i].href %>" <%= links[i].href === currentLink ? 'class="current"' : '' %>><%= links[i].text %></a>
+                    <span> </span>
+                </p>
+                <% } %>
+    </div>
 </nav>

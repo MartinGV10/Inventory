@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('partials/nav', {links: links}) %>
+
+    <h1 class="title"><%= title %></h1>
+
+    <form action="/createNew" method="post">
+        <div class="top">
+            <label for="">Player Name</label>
+            <input type="text" name="full_name">
+        </div>
+
+        <div class="f-top">
+            <div class="f-left f-side">
+                <label for="">Nationality</label>
+                <input type="text" name="nationality">
+                
+                <label for="">Height (CM)</label>
+                <input type="text" name="height_cm">
+            </div>
+            
+            <div class="f-right f-side">
+                <label for="">Preferred Foot</label>
+                <select name="preferred_foot">
+                    <option value="right">right</option>
+                    <option value="Left">left</option>
+                    <option value="Left">both</option>
+                </select>
+                
+                <label for="">Birth Date</label>
+                <input type="date" name="birth_date">
+                <!-- <label for="">Value</label>
+                <input type="text" name="asking_price">
+                
+                <label for="">Shirt Number</label>
+                <input type="number" name="shirt_number">
+                
+                <label for="">Date of Transfer</label>
+                <input type="text" name="transfer_date">
+                
+                <label for="">Player Status</label>
+                <input type="text" name="status">
+                
+                <label for="">Notes</label>
+                <input type="text" name="notes"> -->
+            </div>
+        </div>
+
+        <button type="submit" class="submit">Submit</button>
+
+    </form>
+</body>
+</html>

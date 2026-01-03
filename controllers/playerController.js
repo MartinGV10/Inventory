@@ -7,7 +7,7 @@ const links = [
     { href: '/contracts', text: 'Contracts'},
     { href: '/listings', text: 'Listings'},
     { href: '/transfers', text: 'Transfers'},
-    { href: '/create', text: 'Create New Player'},
+    { href: '/createNew', text: 'Create New Player'},
 ]
 
 async function getPlayers(req, res) {
@@ -104,10 +104,32 @@ async function getContracts(req, res) {
     })
 }
 
+async function postCreateNew(req, res) {
+    try {
+        const { full_name, nationality, height_cm, preferred_foot, birth_date } = req.body;
+        await db.createNewPlayer({ full_name, nationality, height_cm, preferred_foot, birth_date });
+        res.redirect('/players');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err.message);
+    }
+}
+
+
+function getCreateNew(req, res) {
+    res.render('createNew', {
+        title: 'Create New Player',
+        links: links,
+        currentLink: req.path,
+    })
+}
+
 module.exports = {
     getPlayers,
     getClubs,
     getContracts,
     getTransfers,
     getListings,
+    postCreateNew,
+    getCreateNew
 }

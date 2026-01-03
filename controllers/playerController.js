@@ -124,6 +124,17 @@ function getCreateNew(req, res) {
     })
 }
 
+async function postDeletePlayer(req, res) {
+  try {
+    const { id } = req.body;
+    await db.deletePlayer(id);
+    res.redirect('/players');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+}
+
 module.exports = {
     getPlayers,
     getClubs,
@@ -131,5 +142,6 @@ module.exports = {
     getTransfers,
     getListings,
     postCreateNew,
-    getCreateNew
+    getCreateNew,
+    postDeletePlayer
 }

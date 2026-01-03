@@ -45,6 +45,26 @@ async function createNewPlayer({ full_name, nationality, height_cm, preferred_fo
     );
 }
 
+async function deletePlayer(playerId) {
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN');
+
+        await client.query('DELETE FROM listings WHERE player_id = $1', [playerId]);
+        await client.query('DELETE FROM player_club_contracts WHERE player_id = $1', [playerId]);
+        await client.query('DELETE FROM player_positions WHERE player_id = $1', [playerId]);
+        await client.query('DELETE FROM transfers WHERE player_id = $1', [playerId]);
+
+        await client.query('DELETE FROM players WHERE player_id = $1', [playerId]);
+
+        await client.query('COMMIT');
+    } catch (e) {
+        await client.query('ROLLBACK');
+        throw e;
+    } finally {
+        client.release();
+    }
+}
 
 module.exports = {
     getAllPlayers,
@@ -52,5 +72,6 @@ module.exports = {
     getAllListings,
     getAllTransfers,
     getAllContracts,
-    createNewPlayer
+    createNewPlayer,
+    deletePlayer
 }

@@ -19,7 +19,7 @@
                         <%= a.label %>
                     </th>
                 <% }) %>
-                <th>Delete</th>
+                <th>Delete/Update</th>
             </tr>
         </thead>
 
@@ -32,7 +32,10 @@
                         </td>
                     <% }) %>
                     <td>
-                        <button class="delete">Delete</button>
+                        <form action="/delete" method="post">
+                            <button class="delete" name="id" value="<%= item.player_id %>" type="submit">Delete</button>
+                        </form>
+                        <a class="delete" href="/update">Update</a>
                     </td>
                 </tr>
             <% }) %>

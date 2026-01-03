@@ -24,4 +24,6 @@ playerRoutes.get('/transfers', playerController.getTransfers)
 playerRoutes.get('/createNew', playerController.getCreateNew)
 playerRoutes.post('/createNew', playerController.postCreateNew)
 
+playerRoutes.post('/delete', playerController.postDeletePlayer)
+
 module.exports = playerRoutes

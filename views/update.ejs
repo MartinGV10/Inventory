@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('partials/nav', {links: links}) %>
+    <h1 class="title"><%= title %></h1>
+
+    <form action="/update/<%= player.player_id %>" method="post">
+        
+        <div class="f-top">
+            
+            <div class="f-left f-side">
+                <label for="">Player Name</label>
+                <input type="text" name="full_name" value="<%= player.full_name %>">
+
+                <label for="">Nationality</label>
+                <input type="text" name="nationality" value="<%= player.nationality %>">
+                
+                <label for="">Height (CM)</label>
+                <input type="text" name="height_cm" value="<%= player.height_cm %>">
+                
+                <label for="">Preferred Foot</label>
+                <select name="preferred_foot">
+                    <option value="right" <%= player.preferred_foot === 'right' ? 'selected' : '' %>>right</option>
+                    <option value="left" <%= player.preferred_foot === 'left' ? 'selected' : '' %>>left</option>
+                    <option value="both" <%= player.preferred_foot === 'both' ? 'selected' : '' %>>both</option>
+                </select>
+            </div>
+            
+            <div class="f-right f-side">
+    
+                <label for="">Birth Date</label>
+                <input type="date" name="birth_date" value="<%= player.birth_date ? new Date(player.birth_date).toISOString().split('T')[0] : '' %>">
+                
+                <label for="">Value</label>
+                <input type="text" name="asking_price" value="<%= player.asking_price %>">
+                
+                <label for="">Shirt Number</label>
+                <input type="number" name="shirt_number" value="<%= player.shirt_number %>">
+                
+                <label for="">Position</label>
+                <select name="position">
+                    <option value="">-- Select Position --</option>
+                    <% positions.forEach(pos => { %>
+                        <option value="<%= pos.code %>" <%= player.position_code === pos.code ? 'selected' : '' %>><%= pos.name %></option>
+                    <% }) %>
+                </select>
+                
+                <!-- <label for="">Position</label>
+                <select name="transfer_date" value="<%= player.transfer_date %>">
+                    <option value="right" <%= player.preferred_foot === 'right' ? 'selected' : '' %>>right</option> -->
+                <!-- <label for="">Player Status</label>
+                <input type="text" name="status" value="<%= player.player_status %>">
+                
+                <label for="">Notes</label>
+                <input type="text" name="notes" value="<%= player.notes %>">  -->
+            </div>
+        </div>
+
+        <button type="submit" class="submit">Submit</button>
+
+    </form>
+</body>
+</html>

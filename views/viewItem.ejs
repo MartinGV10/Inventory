@@ -35,7 +35,7 @@
                         <form action="/delete" method="post">
                             <button class="delete" name="id" value="<%= item.player_id %>" type="submit">Delete</button>
                         </form>
-                        <a class="delete" href="/update">Update</a>
+                        <a class="delete" href="/update/<%= item.player_id %>">Update</a>
                     </td>
                 </tr>
             <% }) %>

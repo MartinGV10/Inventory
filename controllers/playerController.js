@@ -124,6 +124,19 @@ function getCreateNew(req, res) {
     })
 }
 
+async function getPlayerDetails(req, res) {
+    try {
+        const { id } = req.params;
+        const details = await db.getPlayerInfo(id);
+        console.log(`Player details for ${id}:`, details);
+        // For now, just send JSON, or render a view
+        res.json(details);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err.message);
+    }
+}
+
 async function postDeletePlayer(req, res) {
   try {
     const { id } = req.body;
@@ -135,6 +148,47 @@ async function postDeletePlayer(req, res) {
   }
 }
 
+async function getUpdatePlayer(req, res) {
+    const rows = await db.getPlayerInfo(req.params.id)
+    if (rows.length === 0) {
+        return res.status(404).send('Player not found');
+    }
+    // For now, pass the first row, which has the core player data
+    const player = rows[0];
+    const positions = await db.getAllPositions();
+    res.render('update', {
+        title: 'Update Player',
+        links: links,
+        currentLink: req.path,
+        player: player,
+        positions: positions
+    })
+}
+
+async function postUpdatePlayer(req, res) {
+    try {
+            const rawId = req.params.id;
+
+        if (!rawId) {
+            return res.status(400).send('Missing player id');
+        }
+
+        const playerId = Number(rawId);
+        if (!Number.isInteger(playerId)) {
+            return res.status(400).send('Invalid player id');
+        }
+        const { full_name, nationality, height_cm, preferred_foot, birth_date, shirt_number, position, asking_price, min_price, status, notes } = req.body;
+
+        await db.updatePlayer(playerId, { full_name, nationality, height_cm, preferred_foot, birth_date, shirt_number, position, asking_price, min_price, status, notes });
+
+        res.redirect(`/players`); // or `/player/${playerId}`
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err.message);
+    }
+}
+
+
 module.exports = {
     getPlayers,
     getClubs,
@@ -143,5 +197,8 @@ module.exports = {
     getListings,
     postCreateNew,
     getCreateNew,
-    postDeletePlayer
+    postDeletePlayer,
+    getPlayerDetails,
+    postUpdatePlayer,
+    getUpdatePlayer
 }

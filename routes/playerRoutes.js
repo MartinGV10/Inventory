@@ -16,6 +16,7 @@ playerRoutes.get('/', (req, res) => res.render('index', { links: links, title: '
 
 
 playerRoutes.get('/players', playerController.getPlayers)
+playerRoutes.get('/players/:id', playerController.getPlayerDetails)
 playerRoutes.get('/clubs', playerController.getClubs)
 playerRoutes.get('/contracts', playerController.getContracts)
 playerRoutes.get('/listings', playerController.getListings)
@@ -25,5 +26,8 @@ playerRoutes.get('/createNew', playerController.getCreateNew)
 playerRoutes.post('/createNew', playerController.postCreateNew)
 
 playerRoutes.post('/delete', playerController.postDeletePlayer)
+
+playerRoutes.get('/update/:id', playerController.getUpdatePlayer)
+playerRoutes.post('/update/:id', playerController.postUpdatePlayer)
 
 module.exports = playerRoutes
